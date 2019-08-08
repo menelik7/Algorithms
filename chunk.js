@@ -2,7 +2,7 @@
 // chunk([0, 1, 2, 3, 4, 5, 6], 4) --> [[0, 1, 2, 3], [4, 5, 6]]
 
 // Iterative Solution #1
- function chunk(array, size) {
+function chunk(array, size) {
 	const chunked = [];
 	for (let element of array) {
 		const last = chunked[chunked.length - 1];
@@ -18,15 +18,15 @@
 
 // Iterative solution #2
 function chunk(array, size) {
-  const chunked = [];
-  let index = 0;
+	const chunked = [];
+	let index = 0;
 
-  while (index < array.length) {
-    chunked.push(array.slice(index, index + size));
-    index += size;
-  }
+	while (index < array.length) {
+		chunked.push(array.slice(index, index + size));
+		index += size;
+	}
 
-  return chunked;
+	return chunked;
 }
 
 // Recursive Solution

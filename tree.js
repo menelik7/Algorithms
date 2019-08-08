@@ -125,4 +125,4 @@ console.log('Tree with a specific node removed: ' + JSON.stringify(tree, null, 4
 
 // Clear our tree
 tree.clear();
-console.log('Tree afer running the "clear" method: ' + JSON.stringify(tree, null, 4));
+console.log('Tree after running the "clear" method: ' + JSON.stringify(tree, null, 4));

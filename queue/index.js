@@ -24,10 +24,14 @@ class Queue {
 
 module.exports = Queue;
 
-const q = new Queue;
-q.add('Menelik');
-q.add('Sarah');
-console.log('Queues are First in First out \r\n')
-console.log('q with Menelik added first and then Sarah: ' + JSON.stringify(q, null, 1) + '\r\n');
+const q = new Queue();
+q.add("Menelik");
+q.add("Sarah");
+console.log("Queues are First in First out \r\n");
+console.log(
+	"q with Menelik added first and then Sarah: " +
+		JSON.stringify(q, null, 1) +
+		"\r\n"
+);
 q.remove();
-console.log('q with last item removed: ' + JSON.stringify(q, null, 1));
+console.log("q with last item removed: " + JSON.stringify(q, null, 1));
