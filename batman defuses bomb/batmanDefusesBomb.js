@@ -86,31 +86,35 @@ let minYCoord = 0;
 let maxXCoord = W - 1;
 let maxYCoord = H - 1;
 
-const bombLocation = [7, 7];
+const bombLocation = [7, 2];
 const A0 = bombLocation[0];
 const B0 = bombLocation[1];
 console.log("Bomb Location: ", bombLocation);
 
-let batmanPosition = [2, 1];
+let batmanPosition = [2, 7];
+let X0 = batmanPosition[0];
+let Y0 = batmanPosition[1];
 
 let numberOfJumps = 0;
 
+const finalMessage = () => {
+	console.log(
+		`Found and defused the bomb in ${
+			numberOfJumps === 1
+				? numberOfJumps + " jump"
+				: numberOfJumps + " jumps"
+		}! My current location is now: [ ${X0}, ${Y0} ]`
+	);
+};
+
+const finalBatmanPosition = () => {
+	console.log(`[ ${X0}, ${Y0} ]`);
+	finalMessage();
+};
+
 // game loop
 while (numberOfJumps < N) {
-	let X0 = batmanPosition[0];
-	let Y0 = batmanPosition[1];
 	let bombDir = ""; // the direction of the bombs from batman's current location (D, U, R, L, DR, DL, UR, UL).
-
-	if (batmanPosition.every((value, index) => value === bombLocation[index])) {
-		console.log(
-			`Found and defused the bomb in ${
-				numberOfJumps === 1
-					? numberOfJumps + " jump"
-					: numberOfJumps + " jumps"
-			}! My current location is now: [ ${X0}, ${Y0} ]`
-		);
-		break;
-	}
 
 	if (B0 > Y0) {
 		bombDir += "D";
@@ -129,58 +133,40 @@ while (numberOfJumps < N) {
 		maxXCoord = X0 - 1;
 	}
 
-	if (maxYCoord === minYCoord && maxXCoord === minXCoord) {
-		(batmanPosition[1] = minYCoord || maxYCoord) &&
-			(batmanPosition[0] = maxXCoord || minXCoord);
-		bombDir = "";
+	if (!bombDir) {
+		finalMessage();
+		break;
 	}
 
-	if (bombDir === "D") {
-		maxYCoord === minYCoord
-			? (batmanPosition[1] = minYCoord || maxYCoord)
-			: (batmanPosition[1] = Math.ceil((minYCoord + maxYCoord) / 2));
-	} else if (bombDir === "U") {
-		maxYCoord === minYCoord
-			? (batmanPosition[1] = maxYCoord || minYCoord)
-			: (batmanPosition[1] =
-					minYCoord + Math.ceil((maxYCoord - minYCoord) / 2));
-	} else if (bombDir === "R") {
-		maxXCoord === minXCoord
-			? (batmanPosition[0] = maxXCoord || minXCoord)
-			: (batmanPosition[0] = Math.ceil((minXCoord + maxXCoord) / 2));
-	} else if (bombDir === "L") {
-		maxXCoord === minXCoord
-			? (batmanPosition[0] = maxXCoord || minXCoord)
-			: (batmanPosition[0] =
-					minXCoord + Math.ceil((maxXCoord - minXCoord) / 2));
-	} else if (bombDir === "DR") {
-		maxYCoord === minYCoord
-			? (batmanPosition[1] = minYCoord || maxYCoord)
-			: (batmanPosition[1] = Math.ceil((minYCoord + maxYCoord) / 2)) &&
-			  (batmanPosition[0] = Math.ceil((minXCoord + maxXCoord) / 2));
-	} else if (bombDir === "DL") {
-		maxYCoord === minYCoord
-			? (batmanPosition[1] = minYCoord || maxYCoord)
-			: (batmanPosition[1] = Math.ceil((minYCoord + maxYCoord) / 2)) &&
-			  (batmanPosition[0] =
-					minXCoord + Math.ceil((maxXCoord - minXCoord) / 2));
-	} else if (bombDir === "UR") {
-		maxYCoord === minYCoord
-			? (batmanPosition[1] = maxYCoord || minYCoord)
-			: (batmanPosition[1] =
-					minYCoord + Math.ceil((maxYCoord - minYCoord) / 2)) &&
-			  (batmanPosition[0] = Math.ceil((minXCoord + maxXCoord) / 2));
-	} else if (bombDir === "UL") {
-		maxYCoord === minYCoord
-			? (batmanPosition[1] = maxYCoord || minYCoord)
-			: (batmanPosition[1] =
-					minYCoord + Math.ceil((maxYCoord - minYCoord) / 2)) &&
-			  (batmanPosition[0] =
-					minXCoord + Math.ceil((maxXCoord - minXCoord) / 2));
+	if (maxYCoord === minYCoord && maxXCoord === minXCoord) {
+		(Y0 = minYCoord || maxYCoord) && (X0 = maxXCoord || minXCoord);
+		numberOfJumps++;
+		finalBatmanPosition();
+		break;
+	}
+
+	if (maxYCoord === minYCoord) {
+		Y0 = maxYCoord || minYCoord;
+	} else if (maxYCoord - minYCoord === 2) {
+		Y0 = maxYCoord - 1 || minYCoord + 1;
+	} else if (bombDir.indexOf("D") !== -1) {
+		Y0 = Math.ceil((minYCoord + maxYCoord) / 2);
+	} else if (bombDir.indexOf("U") !== -1) {
+		Y0 = minYCoord + Math.floor((maxYCoord - minYCoord) / 2);
+	}
+
+	if (maxXCoord === minXCoord) {
+		X0 = maxXCoord || minXCoord;
+	} else if (maxXCoord - minXCoord === 2) {
+		X0 = maxXCoord - 1 || minXCoord + 1;
+	} else if (bombDir.indexOf("R") !== -1) {
+		X0 = Math.floor((minXCoord + maxXCoord) / 2);
+	} else if (bombDir.indexOf("L") !== -1) {
+		X0 = minXCoord + Math.ceil((maxXCoord - minXCoord) / 2);
 	}
 
 	numberOfJumps++;
-	console.log(batmanPosition);
+	console.log(`[ ${X0}, ${Y0} ]`);
 }
 
 if (numberOfJumps === N) {
