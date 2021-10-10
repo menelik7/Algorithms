@@ -13,7 +13,7 @@ function giveChange(change) {
 	return {
 		two,
 		five: Math.floor((rest % 10) / 5),
-		ten: Math.floor(rest / 10)
+		ten: Math.floor(rest / 10),
 	};
 }
 
@@ -27,7 +27,7 @@ function giveChange(change) {
 // if(change%5 === 3) two = 4;
 // if(change%5 === 4) two = 2;
 
-// change >> 1 is here just a shorthand for Math.floor(change/2) and deals mostly with the special cases giveChange(1) and giveChange(3); They are not interchangable, but for the range 0..4 (where I use it) they produce the same result.
+// change >> 1 is here just a shorthand for Math.floor(change/2) and deals mostly with the special cases giveChange(1) and giveChange(3); They are not interchangeable, but for the range 0..4 (where I use it) they produce the same result.
 
 function giveChange(amount) {
 	amount = Math.floor(amount);

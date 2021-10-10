@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Practice</title>
+		<style>
+			body {
+				height: 100vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			#box {
+				width: 200px;
+				height: 200px;
+				border: 10px solid yellow;
+				padding: 10px;
+			}
+
+			.clicked {
+				background: red;
+				color: #fff;
+			}
+
+			.center {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<h2 id="title">መኮቡ ኢንተርፕራይዝስ ኃ.የተ.የግ.ማ</h2>
+		</div>
+		<script>
+			// // keyword "this" difference in arrow function and regular function
+			// const box = document.getElementById("box");
+			// const title = document.getElementById("title");
+			// box.addEventListener("click", function() {
+			// 	if (title.textContent === "Hello world!") {
+			// 		title.innerHTML = "Good bye World!";
+			// 	} else {
+			// 		title.innerHTML = "Hello world!";
+			// 	}
+			// 	this.classList.toggle("clicked");
+			// 	setTimeout(() => {
+			// 		this.classList.toggle("center");
+			// 	}, 1000);
+			// });
+
+			const orderOfChildren = function () {
+				const children = Array.from(arguments);
+				return children.map((child, i) => {
+					return `${child} was child #${i + 1}`;
+				});
+				console.log(arguments);
+			};
+		</script>
+	</body>
+</html>

@@ -4,32 +4,36 @@
 
 const N = 5; // maximum number of turns before game over.
 
-const size = [4, 8]; // Size of building.
+const size = [10, 10]; // Size of building.
 const W = size[0]; // width of the building.
 const H = size[1]; // height of the building.
-let minXCoord = 0;
-let minYCoord = 0;
-let maxXCoord = W - 1;
-let maxYCoord = H - 1;
+let minXCoord = 1;
+let minYCoord = 1;
+let maxXCoord = W;
+let maxYCoord = H;
 
-const bombLocation = [3, 7];
-const A0 = bombLocation[0];
-const B0 = bombLocation[1];
-console.log("Bomb Location: ", bombLocation);
-
-let batmanPosition = [2, 3];
+let batmanPosition = [
+	Math.floor(Math.random() * W) + 1,
+	Math.floor(Math.random() * H) + 1,
+];
 console.log("Batman's starting position: ", batmanPosition);
 let X0 = batmanPosition[0];
 let Y0 = batmanPosition[1];
+
+const bombLocation = [
+	Math.floor(Math.random() * W) + 1,
+	Math.floor(Math.random() * H) + 1,
+];
+const A0 = bombLocation[0];
+const B0 = bombLocation[1];
+console.log("Bomb Location: ", bombLocation);
 
 let numberOfJumps = 0;
 
 const finalMessage = () => {
 	console.log(
 		`Found and defused the bomb in ${
-			numberOfJumps === 1
-				? numberOfJumps + " jump"
-				: numberOfJumps + " jumps"
+			numberOfJumps === 1 ? numberOfJumps + " jump" : numberOfJumps + " jumps"
 		}! My current location is now: [ ${X0}, ${Y0} ]`
 	);
 };
@@ -44,11 +48,11 @@ while (numberOfJumps < N) {
 	let bombDir = ""; // the direction of the bombs from batman's current location (D, U, R, L, DR, DL, UR, UL).
 
 	if (B0 > Y0) {
-		bombDir += "D";
+		bombDir += "U";
 		minYCoord = Y0 + 1;
 	}
 	if (B0 < Y0) {
-		bombDir += "U";
+		bombDir += "D";
 		maxYCoord = Y0 - 1;
 	}
 	if (A0 > X0) {
@@ -99,7 +103,5 @@ while (numberOfJumps < N) {
 }
 
 if (numberOfJumps === N) {
-	console.log(
-		"You've exceeded your allowed number of jumps(5).  GAME OVER!!!"
-	);
+	console.log("You've exceeded your allowed number of jumps(5).  GAME OVER!!!");
 }
