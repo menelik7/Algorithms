@@ -1,9 +1,8 @@
-//    [1, 2, 3], 
+//    [1, 2, 3],
 //    [8, 9, 4], SR ER
-//    [7, 6, 5]  
-// 	      EC    
+//    [7, 6, 5]
+// 	      EC
 //        SC
-
 
 // Iterative solution
 function matrix(n) {
@@ -12,7 +11,7 @@ function matrix(n) {
 	for (let i = 0; i < n; i++) {
 		array.push([]);
 	}
-	
+
 	let counter = 1;
 	let startRow = 0;
 	let endRow = n - 1;
@@ -34,13 +33,13 @@ function matrix(n) {
 
 		for (let i = endCol; i >= startCol; i--) {
 			array[endRow][i] = counter;
-			counter++
+			counter++;
 		}
 		endRow--;
 
 		for (let i = endRow; i >= startRow; i--) {
 			array[i][startCol] = counter;
-			counter++
+			counter++;
 		}
 		startCol++;
 	}
@@ -48,4 +47,4 @@ function matrix(n) {
 	return array;
 }
 
-console.log(matrix(15));
+console.log(JSON.stringify(matrix(9), 4, null));

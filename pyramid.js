@@ -1,4 +1,4 @@
-//   # 
+//   #
 //  ###
 // #####
 // Iterative solution
@@ -21,7 +21,7 @@
 // }
 
 // Recursive solution
-function pyramid(n, row = 0, level = '') {
+function pyramid(n, row = 0, level = "") {
 	if (n === row) {
 		return;
 	}
@@ -32,8 +32,11 @@ function pyramid(n, row = 0, level = '') {
 	}
 
 	const midpointIndex = Math.floor((n * 2 - 1) / 2);
-	let add = (midpointIndex - row <= level.length && midpointIndex + row >= level.length) ? '#' : ' ';
+	let add =
+		midpointIndex - row <= level.length && midpointIndex + row >= level.length
+			? "#"
+			: " ";
 	return pyramid(n, row, level + add);
 }
 
-pyramid(5);
+pyramid(4);
