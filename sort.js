@@ -41,37 +41,42 @@ function selectionSort(array) {
 }
 
 // Merge sort
-// function mergeSort(array) {
-// 	if (array.length === 1) {
-// 		return array;
+// function mergeSort(nums) {
+// 	if (nums.length === 1) {
+// 		return nums;
 // 	}
 
-// 	const center = Math.floor(array.length / 2);
-// 	const left = array.slice(0, center);
-// 	const right = array.slice(center);
+// 	const middle = Math.floor(nums.length / 2);
+// 	const nums1 = nums.slice(0, middle);
+// 	const nums2 = nums.slice(middle);
 
-// 	return merge(mergeSort(left), mergeSort(right));
+// 	return merge(mergeSort(nums1), mergeSort(nums2));
 // }
 
-// function merge(left, right) {
-// 	const results = [];
+// function merge(nums1, nums2) {
+// 	const result = [];
+// 	let nums1Item = nums1[0];
+// 	let nums2Item = nums2[0];
+// 	let i = 0;
+// 	let j = 0;
 
-// 	while (left.length && right.length) {
-// 		if (left[0] < right[0]) {
-// 			results.push(left.shift());
+// 	while (nums1Item !== undefined || nums2Item !== undefined) {
+// 		if (nums2Item === undefined || nums1Item < nums2Item) {
+// 			i++;
+// 			result.push(nums1Item);
+// 			nums1Item = nums1[i];
 // 		} else {
-// 			results.push(right.shift());
+// 			j++;
+// 			result.push(nums2Item);
+// 			nums2Item = nums2[j];
 // 		}
 // 	}
 
-// 	return [...results, ...left, ...right];
+// 	return result;
 // }
 
-// console.log("Bubble Sort");
-// console.log(bubbleSort(array));
-
-console.log("selection Sort");
-console.log(selectionSort(array));
+// console.log("selection Sort");
+// console.log(selectionSort(array));
 
 // console.log("Merge Sort");
 // console.log(mergeSort(array));

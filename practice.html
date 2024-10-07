@@ -1,62 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Practice</title>
-		<style>
-			body {
-				height: 100vh;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-
-			#box {
-				width: 200px;
-				height: 200px;
-				border: 10px solid yellow;
-				padding: 10px;
-			}
-
-			.clicked {
-				background: red;
-				color: #fff;
-			}
-
-			.center {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="box">
-			<h2 id="title">መኮቡ ኢንተርፕራይዝስ ኃ.የተ.የግ.ማ</h2>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Kewich</title>
+</head>
+<body style="background-color: #F2F2F2; padding: 20px;">
+	<div style="background-color: #0072E9; padding: 20px;">
+		<a href="https://www.kewich.com" style="text-decoration: none; display: block; text-align: center; height: 26px;">
+			<img src="https://res.cloudinary.com/mazorya/image/upload/c_scale,e_sharpen:1,h_216,q_100/v1709558145/company-logo.png" height="26" width="106" />	
+		</a>
+	</div>
+	<div style="background-color: #fff; padding: 20px;">
+		<p>You received this email because you (or someone else) has attempted to create an account on kewich.com using this email address.</p>
+		<p>If you initiated this process, please verify your email account by clicking on the button below:</p>
+		<div class="col-12">
+			<a href="${process.env.REDIRECT_DOMAIN}/email-confirmation/${tokenValue}" style="display: block; text-decoration: none; width: 200px; height: 50px; text-align: center; border-radius: 5px; background-color: #0072E9; color: #fff; box-sizing: border-box; ">
+					<p style="padding-top: 15px; margin: 0;">CONFIRM</p>
+			</a>
 		</div>
-		<script>
-			// // keyword "this" difference in arrow function and regular function
-			// const box = document.getElementById("box");
-			// const title = document.getElementById("title");
-			// box.addEventListener("click", function() {
-			// 	if (title.textContent === "Hello world!") {
-			// 		title.innerHTML = "Good bye World!";
-			// 	} else {
-			// 		title.innerHTML = "Hello world!";
-			// 	}
-			// 	this.classList.toggle("clicked");
-			// 	setTimeout(() => {
-			// 		this.classList.toggle("center");
-			// 	}, 1000);
-			// });
+		<p>If you did not initiate this process, please ignore this message and we will delete your email address from our database.</p>
+		<p>Please do not reply to this message as this email address is not monitored.</p>
+		<p>- from your Customer Care Team <a href="https://www.kewich.com" style="text-decoration: none;"><strong style="color: #0072E9;">@ Kewich</a></strong></p>
+	</div>
+	<div style="background-color: #0072E9; color: #fff; padding: 20px; text-align: center; margin-top: 2px;">
+		<p><strong>Kewich is the place to get your American fix. Hope to see you soon!</strong></p>
+	</div>
 
-			const orderOfChildren = function () {
-				const children = Array.from(arguments);
-				return children.map((child, i) => {
-					return `${child} was child #${i + 1}`;
-				});
-				console.log(arguments);
-			};
-		</script>
-	</body>
+	<script src="./practice.js"></script>
+</body>
 </html>
