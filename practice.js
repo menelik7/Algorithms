@@ -286,4 +286,29 @@ function firstRecurringItem3(input) {
 	return "No recurring items.";
 }
 
-console.log("result", firstRecurringItem3([2, 1, 4, 3, 5, 9, 2, 5, 3, 5, 2]));
+// console.log("result", firstRecurringItem3([2, 1, 4, 3, 5, 9, 2, 5, 3, 5, 2]));
+
+// Return change in multiple of $ 2, 5, 10 bills
+function getChange(change) {
+	if (change < 2 || change === 3) return "Not possible";
+
+	const denominations = {
+		two: 0,
+		five: 0,
+		ten: 0,
+	};
+	let remainder = change;
+
+	if (change % 2) {
+		denominations.five = 1;
+		remainder = remainder - 5;
+	}
+
+	denominations.ten = Math.floor(remainder / 10);
+	remainder = remainder - denominations.ten * 10;
+	denominations.two = remainder / 2;
+
+	return denominations;
+}
+
+console.log(getChange(4));
