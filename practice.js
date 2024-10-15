@@ -168,11 +168,7 @@ function rotate(nums, k) {
 	const length = nums.length;
 	k = k % length;
 
-	console.log("Original nums", nums);
-	console.log("Length", length);
-	console.log("New k", k);
-
-	nums.push(...nums.splice(0, nums.length - k));
+	nums.push(...nums.splice(0, length - k));
 
 	console.log("Rotated nums", nums);
 }
@@ -208,4 +204,86 @@ function LongestWord(str) {
 }
 // O(n) time, O(1) space
 
-LongestWord("f  umk   n&!! time love"); // time
+// LongestWord("f  umk   n&!! timer loving"); // time
+
+function firstRecurringItem1(input) {
+	// O(n^2)
+	if (!input || input.length < 2) return "Nothing to compare!";
+
+	let inputLength = input.length;
+	const recurringItem = [];
+
+	for (let i = 0; i < inputLength; i++) {
+		for (let j = i + 1; j < inputLength; j++) {
+			if (input[i] === input[j]) {
+				if (recurringItem.length) {
+					if (j < recurringItem[1]) {
+						recurringItem[0] = input[i];
+						recurringItem[1] = j;
+					}
+				} else {
+					recurringItem.push(input[i], j);
+				}
+			}
+
+			console.log(recurringItem);
+		}
+	}
+
+	return recurringItem[0];
+}
+
+function firstRecurringItem2(input) {
+	// O(n logn)
+	if (!input || input.length < 2) return "Nothing to compare!";
+
+	let inputLength = input.length;
+	const map = {};
+	let jump = 1;
+	let result = "No recurring items.";
+
+	while (jump < inputLength) {
+		for (let i = 0; i + jump <= inputLength - 1; i++) {
+			if (input[i] === input[i + jump]) {
+				if (!map.hasOwnProperty(input[i])) {
+					map[input[i]] = i + jump;
+				} else {
+					if (i + jump < map[input[i]]) {
+						map[input[i]] = i + jump;
+					}
+				}
+			}
+		}
+		jump++;
+	}
+
+	let lowestIndexOfRecurringItem = inputLength;
+	Object.entries(map).forEach(([key, value]) => {
+		if (value < lowestIndexOfRecurringItem) {
+			lowestIndexOfRecurringItem = value;
+			result = key;
+		}
+	});
+
+	return result;
+}
+
+function firstRecurringItem3(input) {
+	// O(n)
+	if (!input || input.length < 2) return "Nothing to compare!";
+
+	let inputLength = input.length;
+	const map = {};
+
+	for (let i = 0; i < inputLength; i++) {
+		if (!map.hasOwnProperty(input[i])) {
+			map[input[i]] = true;
+		} else {
+			return input[i];
+		}
+	}
+
+	return "No recurring items.";
+}
+
+console.log("result", firstRecurringItem3([2, 1, 4, 3, 5, 9, 2, 5, 3, 5, 2]));
