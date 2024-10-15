@@ -297,12 +297,12 @@ function getChange(change) {
 		five: 0,
 		ten: 0,
 	};
-	let remainder = change;
 
 	if (change % 2) {
 		denominations.five = 1;
-		remainder = remainder - 5;
 	}
+
+	let remainder = change - denominations.five * 5;
 
 	denominations.ten = Math.floor(remainder / 10);
 	remainder = remainder - denominations.ten * 10;
@@ -311,4 +311,4 @@ function getChange(change) {
 	return denominations;
 }
 
-console.log(getChange(4));
+console.log(getChange(21));
