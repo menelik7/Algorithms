@@ -288,22 +288,42 @@ function firstRecurringItem3(input) {
 
 // console.log("result", firstRecurringItem3([2, 1, 4, 3, 5, 9, 2, 5, 3, 5, 2]));
 
-// Return change in multiple of $ 2, 5, 10 bills
+// Return change in multiple of $ 1, 2, 5, 10, 20, 50 bills
 function getChange(change) {
-	if (change < 2 || change === 3) return "Not possible";
+	if (!change) return "No change required.";
+	if (change > 99) return "Out of bounds.";
 
 	const denominations = {
+		one: 0,
 		two: 0,
 		five: 0,
 		ten: 0,
+		twenty: 0,
+		fifty: 0,
 	};
 
-	if (change % 2) {
+	const digits = JSON.stringify(change).split("");
+	const lastChar = digits[digits.length - 1];
+	const lastDigit = parseFloat(lastChar);
+
+	if (lastDigit > 0 && lastDigit < 5 && lastDigit % 2) {
+		denominations.one = 1;
+	} else {
 		denominations.five = 1;
+		if ((change - 5) % 2) {
+			denominations.one = 1;
+		}
 	}
 
-	let remainder = change - denominations.five * 5;
+	let remainder = change - (denominations.five * 5 + denominations.one);
 
+	// Fifties
+	denominations.fifty = Math.floor(remainder / 50);
+	remainder = remainder - denominations.fifty * 50;
+	// Twenties
+	denominations.twenty = Math.floor(remainder / 20);
+	remainder = remainder - denominations.twenty * 20;
+	// Tens
 	denominations.ten = Math.floor(remainder / 10);
 	remainder = remainder - denominations.ten * 10;
 	denominations.two = remainder / 2;
@@ -311,4 +331,118 @@ function getChange(change) {
 	return denominations;
 }
 
-console.log(getChange(21));
+// console.log(getChange(48));
+
+// Linked list
+class Node {
+	constructor(data) {
+		this.data = data;
+		this.next = null;
+	}
+}
+class LinkedList {
+	constructor(data) {
+		this.head = {
+			data,
+			next: null,
+		};
+		this.tail = this.head;
+		this.length = 1;
+	}
+
+	append(data) {
+		const newNode = new Node(data);
+		this.tail.next = newNode;
+		this.tail = newNode;
+		this.length++;
+
+		return this;
+	}
+
+	prepend(data) {
+		const newNode = new Node(data);
+		newNode.next = this.head;
+		this.head = newNode;
+		this.length++;
+
+		return this;
+	}
+
+	getAt(index) {
+		if (index >= this.length || index < 0) {
+			return undefined;
+		}
+
+		let counter = 0;
+		let node = this.head;
+
+		while (counter !== index) {
+			node = node.next;
+			counter++;
+		}
+
+		return node;
+	}
+
+	insertAt(index, data) {
+		if (index === 0) {
+			console.log("Just prepended", data);
+			return this.prepend(data);
+		}
+
+		if (index === this.length) {
+			console.log("Just appended", data);
+			return this.append(data);
+		}
+
+		const newNode = new Node(data);
+
+		let previousNode = this.getAt(index - 1);
+
+		if (!previousNode) {
+			console.log("Index is out of bounds.");
+			return;
+		}
+
+		let nextNode = previousNode.next;
+		previousNode.next = newNode;
+		newNode.next = nextNode;
+		this.length++;
+	}
+
+	remove(index) {
+		if (index === 0) {
+			this.head = this.head.next;
+
+			return this.length--;
+		}
+
+		let nodeToBeRemoved = this.getAt(index);
+
+		if (!nodeToBeRemoved) {
+			console.log("Index is out of bounds.");
+			return;
+		}
+
+		let previousNode = this.getAt(index - 1);
+
+		if (index === this.length - 1) {
+			this.tail = previousNode;
+		}
+
+		previousNode.next = nodeToBeRemoved.next;
+		return this.length--;
+	}
+}
+
+const linkedList = new LinkedList("Tihitina");
+linkedList.append("Sarah");
+linkedList.append("Fikir");
+
+linkedList.prepend("Menelik");
+linkedList.insertAt(2, "Bikisho");
+console.log("After insert: ", JSON.stringify(linkedList, null, 2));
+// const index = 3;
+// console.log(`The data at index ${index} is:`, linkedList.getAt(index));
+linkedList.remove(3);
+console.log("After removal", JSON.stringify(linkedList, null, 2));
