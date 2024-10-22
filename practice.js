@@ -338,6 +338,7 @@ class Node {
 	constructor(data) {
 		this.data = data;
 		this.next = null;
+		this.previous = null;
 	}
 }
 class LinkedList {
@@ -345,6 +346,7 @@ class LinkedList {
 		this.head = {
 			data,
 			next: null,
+			previous: null,
 		};
 		this.tail = this.head;
 		this.length = 1;
@@ -352,6 +354,7 @@ class LinkedList {
 
 	append(data) {
 		const newNode = new Node(data);
+		newNode.previous = this.tail;
 		this.tail.next = newNode;
 		this.tail = newNode;
 		this.length++;
@@ -362,6 +365,7 @@ class LinkedList {
 	prepend(data) {
 		const newNode = new Node(data);
 		newNode.next = this.head;
+		this.head.previous = newNode;
 		this.head = newNode;
 		this.length++;
 
@@ -441,8 +445,28 @@ linkedList.append("Fikir");
 
 linkedList.prepend("Menelik");
 linkedList.insertAt(2, "Bikisho");
-console.log("After insert: ", JSON.stringify(linkedList, null, 2));
-// const index = 3;
-// console.log(`The data at index ${index} is:`, linkedList.getAt(index));
-linkedList.remove(3);
-console.log("After removal", JSON.stringify(linkedList, null, 2));
+// linkedList.remove(3);
+// console.log("After removal", JSON.stringify(linkedList, null, 2));
+
+console.log("Doubly linked list raw: ", linkedList);
+
+function printList(linkedList) {
+	let node = linkedList.head;
+	const list = [];
+
+	while (node) {
+		let data = node.data;
+		let nextNode = node.next ? node.next.data : null;
+		let previousNode = node.previous ? node.previous.data : null;
+		list.push({
+			data,
+			next: nextNode,
+			previous: previousNode,
+		});
+		node = node.next;
+	}
+
+	console.log("Doubly linked list formatted: ", list);
+}
+
+printList(linkedList);
